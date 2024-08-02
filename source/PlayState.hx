@@ -12,10 +12,10 @@ class PlayState extends FlxState
 	var bg:FlxSprite;
 	var face:FlxSprite;
 	var shop:FlxSprite;
+	var shopText:FlxText;
 	var lobotomies:FlxText;
-	var number:Float = 0;
-	var numberMultiplier:Float = 1;
-	var shopPurchased:Bool = false;
+	var number:Int = 0;
+	var numberMultiplier:Int = 0;
 
 	override public function create()
 	{
@@ -41,6 +41,9 @@ class PlayState extends FlxState
 		shop.x = 980;
 		shop.y = 0;
 		add(shop);
+		shopText = new FlxText(980, 0, 0, 'cum', 48);
+		shopText.setFormat("Times New Roman", 48);
+		add(shopText);
 	}
 
 	override public function update(elapsed:Float)
@@ -48,20 +51,11 @@ class PlayState extends FlxState
 		super.update(elapsed);
 		if (FlxG.mouse.overlaps(face))
 		{
-			if (FlxG.mouse.pressed)
+			if (FlxG.mouse.justPressed)
 			{
 				face.scale.set(0.275, 0.275);
 				face.updateHitbox();
-				if (shopPurchased)
-				{
-					number += 1 * numberMultiplier;
-					numberMultiplier += 1.01;
-					Std.string(Std.int(number));
-				}
-				else
-				{
-					number += 1;
-				}
+				number += (1 + numberMultiplier);
 				remove(lobotomies);
 				lobotomies = new FlxText(0, 100, 0, '${number} lobotomies', 48);
 				lobotomies.setFormat("Times New Roman", 48);
@@ -75,9 +69,14 @@ class PlayState extends FlxState
 		}
 		if (FlxG.mouse.overlaps(shop))
 		{
-			if (FlxG.mouse.pressed)
+			if (FlxG.mouse.justPressed)
 			{
 				number -= 100;
+				numberMultiplier += 1;
+				remove(lobotomies);
+				lobotomies = new FlxText(0, 100, 0, '${number} lobotomies', 48);
+				lobotomies.setFormat("Times New Roman", 48);
+				add(lobotomies);
 				if (number < 100)
 				{
 					remove(bg);
@@ -93,11 +92,11 @@ class PlayState extends FlxState
 					face.y = 100;
 					add(face);
 				}
-				else if (number >= 100 && number < 500)
+				if (number >= 100)
 				{
 					remove(bg);
 					bg = new FlxSprite();
-					bg.makeGraphic(1280, 720, FlxColor.YELLOW);
+					bg.makeGraphic(1280, 720, 0xFFFFC000);
 					add(bg);
 					remove(face);
 					face = new FlxSprite();
@@ -109,40 +108,41 @@ class PlayState extends FlxState
 					add(face);
 				}
 				shop.alpha = 0.1;
-				shopPurchased = true;
 			}
 			if (FlxG.mouse.justReleased)
 			{
 				shop.alpha = 0.5;
 			}
 		}
-		switch (number)
+		if (number >= 100)
 		{
-			case 100 | 500:
-				remove(bg);
-				bg = new FlxSprite();
-				switch (number)
-				{
-					case 100:
-						bg.makeGraphic(1280, 720, FlxColor.YELLOW);
-					case 500:
-						bg.makeGraphic(1280, 720, FlxColor.BLUE);
-				}
-				add(bg);
-				remove(face);
-				face = new FlxSprite();
-				switch (number)
-				{
-					case 100:
-						face.loadGraphic("assets/images/auto.png");
-					case 500:
-						face.loadGraphic("assets/images/easy.png");
-				}
-				face.scale.set(0.25, 0.25);
-				face.updateHitbox();
-				face.x = 100;
-				face.y = 100;
-				add(face);
+			remove(bg);
+			bg = new FlxSprite();
+			bg.makeGraphic(1280, 720, 0xFFFFC000);
+			add(bg);
+			remove(face);
+			face = new FlxSprite();
+			face.loadGraphic("assets/images/auto.png");
+			face.scale.set(0.25, 0.25);
+			face.updateHitbox();
+			face.x = 100;
+			face.y = 100;
+			add(face);
+		}
+		if (number >= 500)
+		{
+			remove(bg);
+			bg = new FlxSprite();
+			bg.makeGraphic(1280, 720, FlxColor.BLUE);
+			add(bg);
+			remove(face);
+			face = new FlxSprite();
+			face.loadGraphic("assets/images/easy.png");
+			face.scale.set(0.25, 0.25);
+			face.updateHitbox();
+			face.x = 100;
+			face.y = 100;
+			add(face);
 		}
 	}
 }
