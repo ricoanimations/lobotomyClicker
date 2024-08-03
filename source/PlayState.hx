@@ -26,6 +26,18 @@ class PlayState extends FlxState
 	var lobotomies:FlxText;
 	var number:Int = 0;
 	var numberMultiplier:Int = 0;
+	var shopNumber:Int = 15;
+	var shopNumber2:Int = 40;
+	var shopNumber3:Int = 70;
+	var shopNumber4:Int = 120;
+	var shopNumber5:Int = 200;
+	var shopNumber6:Int = 450;
+	var shopNumberMultiplier:Int = 1;
+	var shopNumberMultiplier2:Int = 2;
+	var shopNumberMultiplier3:Int = 3;
+	var shopNumberMultiplier4:Int = 5;
+	var shopNumberMultiplier5:Int = 8;
+	var shopNumberMultiplier6:Int = 15;
 
 	override public function create()
 	{
@@ -81,22 +93,22 @@ class PlayState extends FlxState
 		shop6.x = 980;
 		shop6.y = 600;
 		add(shop6);
-		shopText = new FlxText(980, 0, 0, '+1 multiplier\n15 lobotomies', 48);
+		shopText = new FlxText(980, 0, 0, '+1 multiplier\n${shopNumber} lobotomies', 48);
 		shopText.setFormat("Times New Roman", 48);
 		add(shopText);
-		shopText2 = new FlxText(980, 120, 0, '+2 multiplier\n40 lobotomies', 48);
+		shopText2 = new FlxText(980, 120, 0, '+2 multiplier\n${shopNumber2} lobotomies', 48);
 		shopText2.setFormat("Times New Roman", 48);
 		add(shopText2);
-		shopText3 = new FlxText(980, 240, 0, '+3 multiplier\n70 lobotomies', 48);
+		shopText3 = new FlxText(980, 240, 0, '+3 multiplier\n${shopNumber3} lobotomies', 48);
 		shopText3.setFormat("Times New Roman", 48);
 		add(shopText3);
-		shopText4 = new FlxText(980, 360, 0, '+5 multiplier\n120 lobotomies', 48);
+		shopText4 = new FlxText(980, 360, 0, '+5 multiplier\n${shopNumber4} lobotomies', 48);
 		shopText4.setFormat("Times New Roman", 48);
 		add(shopText4);
-		shopText5 = new FlxText(980, 480, 0, '+8 multiplier\n200 lobotomies', 48);
+		shopText5 = new FlxText(980, 480, 0, '+8 multiplier\n${shopNumber5} lobotomies', 48);
 		shopText5.setFormat("Times New Roman", 48);
 		add(shopText5);
-		shopText6 = new FlxText(980, 600, 0, '+15 multiplier\n450 lobotomies', 48);
+		shopText6 = new FlxText(980, 600, 0, '+15 multiplier\n${shopNumber6} lobotomies', 48);
 		shopText6.setFormat("Times New Roman", 48);
 		add(shopText6);
 	}
@@ -128,29 +140,47 @@ class PlayState extends FlxState
 			{
 				if (FlxG.mouse.overlaps(shop))
 				{
-					if (number >= 15)
+					if (number >= shopNumber)
 					{
-						number -= 15;
+						number -= shopNumber;
 						numberMultiplier += 1;
+						shopNumberMultiplier += 1;
+						shopNumber += (1 + shopNumberMultiplier);
 						shop.alpha = 0.1;
+						remove(shopText);
+						shopText = new FlxText(980, 0, 0, '+1 multiplier\n${shopNumber} lobotomies', 48);
+						shopText.setFormat("Times New Roman", 48);
+						add(shopText);
 					}
 				}
 				else if (FlxG.mouse.overlaps(shop2))
 				{
-					if (number >= 40)
+					if (number >= shopNumber2)
 					{
-						number -= 40;
+						number -= shopNumber2;
 						numberMultiplier += 2;
+						shopNumberMultiplier2 += 2;
+						shopNumber2 += (2 + shopNumberMultiplier2);
 						shop2.alpha = 0.1;
+						remove(shopText2);
+						shopText2 = new FlxText(980, 120, 0, '+2 multiplier\n${shopNumber2} lobotomies', 48);
+						shopText2.setFormat("Times New Roman", 48);
+						add(shopText2);
 					}
 				}
 				else if (FlxG.mouse.overlaps(shop3))
 				{
-					if (number >= 70)
+					if (number >= shopNumber3)
 					{
-						number -= 70;
+						number -= shopNumber3;
 						numberMultiplier += 3;
+						shopNumberMultiplier3 += 3;
+						shopNumber3 += (3 + shopNumberMultiplier3);
 						shop3.alpha = 0.1;
+						remove(shopText3);
+						shopText3 = new FlxText(980, 240, 0, '+3 multiplier\n${shopNumber3} lobotomies', 48);
+						shopText3.setFormat("Times New Roman", 48);
+						add(shopText3);
 					}
 				}
 				remove(lobotomies);
@@ -203,29 +233,47 @@ class PlayState extends FlxState
 			{
 				if (FlxG.mouse.overlaps(shop4))
 				{
-					if (number >= 120)
+					if (number >= shopNumber4)
 					{
-						number -= 120;
+						number -= shopNumber4;
 						numberMultiplier += 5;
+						shopNumberMultiplier4 += 5;
+						shopNumber4 += (5 + shopNumberMultiplier4);
 						shop4.alpha = 0.1;
+						remove(shopText4);
+						shopText4 = new FlxText(980, 360, 0, '+5 multiplier\n${shopNumber4} lobotomies', 48);
+						shopText4.setFormat("Times New Roman", 48);
+						add(shopText4);
 					}
 				}
 				else if (FlxG.mouse.overlaps(shop5))
 				{
-					if (number >= 200)
+					if (number >= shopNumber5)
 					{
-						number -= 200;
+						number -= shopNumber5;
 						numberMultiplier += 8;
+						shopNumberMultiplier5 += 8;
+						shopNumber5 += (8 + shopNumberMultiplier5);
 						shop5.alpha = 0.1;
+						remove(shopText5);
+						shopText5 = new FlxText(980, 480, 0, '+8 multiplier\n${shopNumber5} lobotomies', 48);
+						shopText5.setFormat("Times New Roman", 48);
+						add(shopText5);
 					}
 				}
 				else if (FlxG.mouse.overlaps(shop6))
 				{
-					if (number >= 450)
+					if (number >= shopNumber6)
 					{
-						number -= 450;
+						number -= shopNumber6;
 						numberMultiplier += 15;
+						shopNumberMultiplier6 += 15;
+						shopNumber6 += (15 + shopNumberMultiplier6);
 						shop6.alpha = 0.1;
+						remove(shopText6);
+						shopText6 = new FlxText(980, 600, 0, '+15 multiplier\n${shopNumber6} lobotomies', 48);
+						shopText6.setFormat("Times New Roman", 48);
+						add(shopText6);
 					}
 				}
 				remove(lobotomies);
