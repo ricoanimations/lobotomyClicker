@@ -3,7 +3,8 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
-import flixel.math.FlxMath;
+import flixel.math.FlxRandom;
+import flixel.sound.FlxSound;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 
@@ -52,7 +53,13 @@ class PlayState extends FlxState
 	var shopNumberShit4:Int = 5;
 	var shopNumberShit5:Int = 8;
 	var shopNumberShit6:Int = 15;
-
+	var playMusic:Bool = true;
+	var playSFX:Bool = true;
+	var music:FlxSprite;
+	var sfx:FlxSprite;
+	var musicText:FlxText;
+	var sfxText:FlxText;
+	var randomNumber:Int;
 	override public function create()
 	{
 		super.create();
@@ -141,6 +148,25 @@ class PlayState extends FlxState
 		shopText6 = new FlxText(980, 600, 0, '+${shopNumberShit6} multiplier\n${shopNumber6} lobotomies', 48);
 		shopText6.setFormat("Times New Roman", 48);
 		add(shopText6);
+		music = new FlxSprite();
+		music.makeGraphic(100, 100, FlxColor.BLACK);
+		music.alpha = 0.5;
+		music.x = 0;
+		music.y = 520;
+		add(music);
+		sfx = new FlxSprite();
+		sfx.makeGraphic(100, 100, FlxColor.BLACK);
+		sfx.alpha = 0.5;
+		sfx.x = 0;
+		sfx.y = 620;
+		add(sfx);
+		musicText = new FlxText(0, 520, 0, 'mute\nmusic', 24);
+		musicText.setFormat("Times New Roman", 24);
+		add(musicText);
+		sfxText = new FlxText(0, 620, 0, 'mute\nsfx', 24);
+		sfxText.setFormat("Times New Roman", 24);
+		add(sfxText);
+		playdaMusic();
 	}
 
 	override public function update(elapsed:Float)
@@ -162,6 +188,58 @@ class PlayState extends FlxState
 			{
 				face.scale.set(0.25, 0.25);
 				face.updateHitbox();
+			}
+		}
+		if (FlxG.mouse.overlaps(music))
+		{
+			if (playMusic == true && FlxG.mouse.justPressed)
+			{
+				music.alpha = 0.1;
+				playMusic = false;
+				stopdaMusic();
+				remove(musicText);
+				musicText = new FlxText(0, 520, 0, 'unmute\nmusic', 24);
+				musicText.setFormat("Times New Roman", 24);
+				add(musicText);
+			}
+			else if (playMusic == false && FlxG.mouse.justPressed)
+			{
+				music.alpha = 0.1;
+				playMusic = true;
+				playdaMusic();
+				remove(musicText);
+				musicText = new FlxText(0, 520, 0, 'mute\nmusic', 24);
+				musicText.setFormat("Times New Roman", 24);
+				add(musicText);
+			}
+			if (FlxG.mouse.justReleased)
+			{
+				music.alpha = 0.5;
+			}
+		}
+		if (FlxG.mouse.overlaps(sfx))
+		{
+			if (playSFX == true && FlxG.mouse.justPressed)
+			{
+				sfx.alpha = 0.1;
+				playSFX = false;
+				remove(sfxText);
+				sfxText = new FlxText(0, 620, 0, 'unmute\nsfx', 24);
+				sfxText.setFormat("Times New Roman", 24);
+				add(sfxText);
+			}
+			else if (playSFX == false && FlxG.mouse.justPressed)
+			{
+				sfx.alpha = 0.1;
+				playSFX = true;
+				remove(sfxText);
+				sfxText = new FlxText(0, 620, 0, 'mute\nsfx', 24);
+				sfxText.setFormat("Times New Roman", 24);
+				add(sfxText);
+			}
+			if (FlxG.mouse.justReleased)
+			{
+				sfx.alpha = 0.5;
 			}
 		}
 		if (FlxG.mouse.overlaps(rebirth))
@@ -249,8 +327,8 @@ class PlayState extends FlxState
 					if (number >= shopNumber)
 					{
 						number -= shopNumber;
-						numberMultiplier += (1 * rebirthNumber);
-						shopNumberMultiplier += (1 * rebirthNumber);
+						numberMultiplier += shopNumberShit;
+						shopNumberMultiplier += shopNumberShit;
 						shopNumber += (1 + shopNumberMultiplier);
 						shop.alpha = 0.1;
 						remove(shopText);
@@ -265,8 +343,8 @@ class PlayState extends FlxState
 					if (number >= shopNumber2)
 					{
 						number -= shopNumber2;
-						numberMultiplier += (2 * rebirthNumber);
-						shopNumberMultiplier2 += (2 * rebirthNumber);
+						numberMultiplier += shopNumberShit2;
+						shopNumberMultiplier2 += shopNumberShit2;
 						shopNumber2 += (2 + shopNumberMultiplier2);
 						shop2.alpha = 0.1;
 						remove(shopText2);
@@ -281,8 +359,8 @@ class PlayState extends FlxState
 					if (number >= shopNumber3)
 					{
 						number -= shopNumber3;
-						numberMultiplier += (3 * rebirthNumber);
-						shopNumberMultiplier3 += (3 * rebirthNumber);
+						numberMultiplier += shopNumberShit3;
+						shopNumberMultiplier3 += shopNumberShit3;
 						shopNumber3 += (3 + shopNumberMultiplier3);
 						shop3.alpha = 0.1;
 						remove(shopText3);
@@ -314,8 +392,8 @@ class PlayState extends FlxState
 					if (number >= shopNumber4)
 					{
 						number -= shopNumber4;
-						numberMultiplier += (5 * rebirthNumber);
-						shopNumberMultiplier4 += (5 * rebirthNumber);
+						numberMultiplier += shopNumberShit4;
+						shopNumberMultiplier4 += shopNumberShit4;
 						shopNumber4 += (5 + shopNumberMultiplier4);
 						shop4.alpha = 0.1;
 						remove(shopText4);
@@ -330,8 +408,8 @@ class PlayState extends FlxState
 					if (number >= shopNumber5)
 					{
 						number -= shopNumber5;
-						numberMultiplier += (8 * rebirthNumber);
-						shopNumberMultiplier5 += (8 * rebirthNumber);
+						numberMultiplier += shopNumberShit5;
+						shopNumberMultiplier5 += shopNumberShit5;
 						shopNumber5 += (8 + shopNumberMultiplier5);
 						shop5.alpha = 0.1;
 						remove(shopText5);
@@ -346,8 +424,8 @@ class PlayState extends FlxState
 					if (number >= shopNumber6)
 					{
 						number -= shopNumber6;
-						numberMultiplier += (15 * rebirthNumber);
-						shopNumberMultiplier6 += (15 * rebirthNumber);
+						numberMultiplier += shopNumberShit6;
+						shopNumberMultiplier6 += shopNumberShit6;
 						shopNumber6 += (15 + shopNumberMultiplier6);
 						shop6.alpha = 0.1;
 						remove(shopText6);
@@ -371,32 +449,35 @@ class PlayState extends FlxState
 			}
 		}
 		faceChange();
-		if (number == 69 && FlxG.keys.pressed.A)
+		if (number == 69)
 		{
-			remove(bg);
-			remove(face);
-			remove(lobotomies);
-			remove(rebirth);
-			remove(rebirthText);
-			remove(shop);
-			remove(shop2);
-			remove(shop3);
-			remove(shop4);
-			remove(shop5);
-			remove(shop6);
-			remove(shopText);
-			remove(shopText2);
-			remove(shopText3);
-			remove(shopText4);
-			remove(shopText5);
-			remove(shopText6);
-			remove(multiplierText);
-			easteregg = new FlxSprite();
-			easteregg.loadGraphic("assets/images/lobotomy.png");
-			easteregg.screenCenter();
-			add(easteregg);
+			if (FlxG.keys.pressed.A)
+			{
+				remove(bg);
+				remove(face);
+				remove(lobotomies);
+				remove(rebirth);
+				remove(rebirthText);
+				remove(shop);
+				remove(shop2);
+				remove(shop3);
+				remove(shop4);
+				remove(shop5);
+				remove(shop6);
+				remove(shopText);
+				remove(shopText2);
+				remove(shopText3);
+				remove(shopText4);
+				remove(shopText5);
+				remove(shopText6);
+				remove(multiplierText);
+				easteregg = new FlxSprite();
+				easteregg.loadGraphic("assets/images/lobotomy.png");
+				easteregg.screenCenter();
+				add(easteregg);
+			}
 		}
-		else if (number == 841 && FlxG.keys.justPressed.K)
+		else if (number == 841 && FlxG.keys.pressed.K)
 		{
 			remove(bg);
 			remove(face);
@@ -467,9 +548,37 @@ class PlayState extends FlxState
 		{
 			bg.makeGraphic(1280, 720, 0xFF00FF00);
 		}
-		else if (number >= 500)
+		else if (number >= 500 && number < 2500)
 		{
 			bg.makeGraphic(1280, 720, 0xFFFFD000);
+		}
+		else if (number >= 2500 && number < 15000)
+		{
+			bg.makeGraphic(1280, 720, 0xFFFF6000);
+		}
+		else if (number >= 15000 && number < 100000)
+		{
+			bg.makeGraphic(1280, 720, 0xFFFF70E0);
+		}
+		else if (number >= 100000 && number < 1000000)
+		{
+			bg.makeGraphic(1280, 720, 0xFF9A40FF);
+		}
+		else if (number >= 1000000 && number < 2500000)
+		{
+			bg.makeGraphic(1280, 720, 0xFFE030CA);
+		}
+		else if (number >= 2500000 && number < 5000000)
+		{
+			bg.makeGraphic(1280, 720, 0xFFFF3060);
+		}
+		else if (number >= 5000000 && number < 10000000)
+		{
+			bg.makeGraphic(1280, 720, 0xFFFF2020);
+		}
+		else if (number >= 10000000)
+		{
+			bg.makeGraphic(1280, 720, 0xFFC00000);
 		}
 		add(bg);
 		remove(face);
@@ -490,14 +599,70 @@ class PlayState extends FlxState
 		{
 			face.loadGraphic("assets/images/normal.png");
 		}
-		else if (number >= 500)
+		else if (number >= 500 && number < 2500)
 		{
 			face.loadGraphic("assets/images/hard.png");
+		}
+		else if (number >= 2500 && number < 15000)
+		{
+			face.loadGraphic("assets/images/harder.png");
+		}
+		else if (number >= 15000 && number < 100000)
+		{
+			face.loadGraphic("assets/images/insane.png");
+		}
+		else if (number >= 100000 && number < 1000000)
+		{
+			face.loadGraphic("assets/images/easydemon.png");
+		}
+		else if (number >= 1000000 && number < 2500000)
+		{
+			face.loadGraphic("assets/images/mediumdemon.png");
+		}
+		else if (number >= 2500000 && number < 5000000)
+		{
+			face.loadGraphic("assets/images/harddemon.png");
+		}
+		else if (number >= 5000000 && number < 10000000)
+		{
+			face.loadGraphic("assets/images/insanedemon.png");
+		}
+		else if (number >= 10000000)
+		{
+			face.loadGraphic("assets/images/extremedemon.png");
 		}
 		face.scale.set(0.25, 0.25);
 		face.updateHitbox();
 		face.screenCenter();
 		faceOverlap();
 		add(face);
+	}
+	private function playdaMusic()
+	{
+		randomNumber = FlxG.random.int(0, 2);
+		switch (randomNumber)
+		{
+			case 0:
+				if (FlxG.sound.music == null)
+				{
+					FlxG.sound.playMusic("assets/music/stereomadness.ogg", 1, true);
+				}
+			case 1:
+				if (FlxG.sound.music == null)
+				{
+					FlxG.sound.playMusic("assets/music/backontrack.ogg", 1, true);
+				}
+			case 2:
+				if (FlxG.sound.music == null)
+				{
+					FlxG.sound.playMusic("assets/music/polargeist.ogg", 1, true);
+				}
+		}
+		FlxG.sound.music.volume = 1;
+	}
+
+	private function stopdaMusic()
+	{
+		FlxG.sound.music.volume = 0;
 	}
 }
