@@ -60,6 +60,7 @@ class PlayState extends FlxState
 	var musicText:FlxText;
 	var sfxText:FlxText;
 	var randomNumber:Int;
+	var whattheSFX:FlxSound;
 	override public function create()
 	{
 		super.create();
@@ -179,6 +180,10 @@ class PlayState extends FlxState
 				face.scale.set(0.275, 0.275);
 				face.updateHitbox();
 				number += ((1 + numberMultiplier) * rebirthNumber);
+				if (playSFX == true)
+				{
+					playdaSFX();
+				}
 				remove(lobotomies);
 				lobotomies = new FlxText(0, 100, 0, '${number} lobotomies', 48);
 				lobotomies.setFormat("Times New Roman", 48);
@@ -223,6 +228,7 @@ class PlayState extends FlxState
 			{
 				sfx.alpha = 0.1;
 				playSFX = false;
+				stopdaSFX();
 				remove(sfxText);
 				sfxText = new FlxText(0, 620, 0, 'unmute\nsfx', 24);
 				sfxText.setFormat("Times New Roman", 24);
@@ -232,6 +238,7 @@ class PlayState extends FlxState
 			{
 				sfx.alpha = 0.1;
 				playSFX = true;
+				playdaSFX();
 				remove(sfxText);
 				sfxText = new FlxText(0, 620, 0, 'mute\nsfx', 24);
 				sfxText.setFormat("Times New Roman", 24);
@@ -664,5 +671,63 @@ class PlayState extends FlxState
 	private function stopdaMusic()
 	{
 		FlxG.sound.music.volume = 0;
+	}
+	private function playdaSFX()
+	{
+		if (number < 15)
+		{
+			whattheSFX = FlxG.sound.load("assets/sounds/unrated.ogg");
+		}
+		else if (number >= 15 && number < 50)
+		{
+			whattheSFX = FlxG.sound.load("assets/sounds/auto.ogg");
+		}
+		else if (number >= 50 && number < 150)
+		{
+			whattheSFX = FlxG.sound.load("assets/sounds/easy.ogg");
+		}
+		else if (number >= 150 && number < 500)
+		{
+			whattheSFX = FlxG.sound.load("assets/sounds/normal.ogg");
+		}
+		else if (number >= 500 && number < 2500)
+		{
+			whattheSFX = FlxG.sound.load("assets/sounds/hard.ogg");
+		}
+		else if (number >= 2500 && number < 15000)
+		{
+			whattheSFX = FlxG.sound.load("assets/sounds/harder.ogg");
+		}
+		else if (number >= 15000 && number < 100000)
+		{
+			whattheSFX = FlxG.sound.load("assets/sounds/insane.ogg");
+		}
+		else if (number >= 100000 && number < 1000000)
+		{
+			whattheSFX = FlxG.sound.load("assets/sounds/easydemon.ogg");
+		}
+		else if (number >= 1000000 && number < 2500000)
+		{
+			whattheSFX = FlxG.sound.load("assets/sounds/mediumdemon.ogg");
+		}
+		else if (number >= 2500000 && number < 5000000)
+		{
+			whattheSFX = FlxG.sound.load("assets/sounds/harddemon.ogg");
+		}
+		else if (number >= 5000000 && number < 10000000)
+		{
+			whattheSFX = FlxG.sound.load("assets/sounds/insanedemon.ogg");
+		}
+		else if (number >= 10000000)
+		{
+			whattheSFX = FlxG.sound.load("assets/sounds/extremedemon.ogg");
+		}
+		whattheSFX.play();
+		whattheSFX.volume = 1;
+	}
+
+	private function stopdaSFX()
+	{
+		whattheSFX.volume = 0;
 	}
 }
