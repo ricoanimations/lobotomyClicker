@@ -174,18 +174,24 @@ class PlayState extends FlxState
 					numberMultiplier = 0;
 					rebirthNumber += 1;
 					rebirthMinimum *= 3;
-					shopNumberMultiplier *= (1 + rebirthNumber);
-					shopNumberMultiplier2 *= (1 + rebirthNumber);
-					shopNumberMultiplier3 *= (1 + rebirthNumber);
-					shopNumberMultiplier4 *= (1 + rebirthNumber);
-					shopNumberMultiplier5 *= (1 + rebirthNumber);
-					shopNumberMultiplier6 *= (1 + rebirthNumber);
-					shopNumberShit *= (1 + rebirthNumber);
-					shopNumberShit2 *= (1 + rebirthNumber);
-					shopNumberShit3 *= (1 + rebirthNumber);
-					shopNumberShit4 *= (1 + rebirthNumber);
-					shopNumberShit5 *= (1 + rebirthNumber);
-					shopNumberShit6 *= (1 + rebirthNumber);
+					shopNumberMultiplier *= rebirthNumber;
+					shopNumberMultiplier2 *= rebirthNumber;
+					shopNumberMultiplier3 *= rebirthNumber;
+					shopNumberMultiplier4 *= rebirthNumber;
+					shopNumberMultiplier5 *= rebirthNumber;
+					shopNumberMultiplier6 *= rebirthNumber;
+					shopNumberShit *= rebirthNumber;
+					shopNumberShit2 *= rebirthNumber;
+					shopNumberShit3 *= rebirthNumber;
+					shopNumberShit4 *= rebirthNumber;
+					shopNumberShit5 *= rebirthNumber;
+					shopNumberShit6 *= rebirthNumber;
+					shopNumber = 15;
+					shopNumber2 = 40;
+					shopNumber3 = 70;
+					shopNumber4 = 120;
+					shopNumber5 = 200;
+					shopNumber6 = 450;
 					remove(lobotomies);
 					lobotomies = new FlxText(0, 100, 0, '${number} lobotomies', 48);
 					lobotomies.setFormat("Times New Roman", 48);
@@ -202,6 +208,30 @@ class PlayState extends FlxState
 					multiplierText = new FlxText(400, 0, 0, 'current multiplier: ${numberMultiplier + 1}', 48);
 					multiplierText.setFormat("Times New Roman", 48);
 					add(multiplierText);
+					remove(shopText);
+					shopText = new FlxText(980, 0, 0, '+${shopNumberShit} multiplier\n${shopNumber} lobotomies', 48);
+					shopText.setFormat("Times New Roman", 48);
+					add(shopText);
+					remove(shopText2);
+					shopText2 = new FlxText(980, 120, 0, '+${shopNumberShit2} multiplier\n${shopNumber2} lobotomies', 48);
+					shopText2.setFormat("Times New Roman", 48);
+					add(shopText2);
+					remove(shopText3);
+					shopText3 = new FlxText(980, 240, 0, '+${shopNumberShit3} multiplier\n${shopNumber3} lobotomies', 48);
+					shopText3.setFormat("Times New Roman", 48);
+					add(shopText3);
+					remove(shopText4);
+					shopText4 = new FlxText(980, 360, 0, '+${shopNumberShit4} multiplier\n${shopNumber4} lobotomies', 48);
+					shopText4.setFormat("Times New Roman", 48);
+					add(shopText4);
+					remove(shopText5);
+					shopText5 = new FlxText(980, 480, 0, '+${shopNumberShit5} multiplier\n${shopNumber5} lobotomies', 48);
+					shopText5.setFormat("Times New Roman", 48);
+					add(shopText5);
+					remove(shopText6);
+					shopText6 = new FlxText(980, 600, 0, '+${shopNumberShit6} multiplier\n${shopNumber6} lobotomies', 48);
+					shopText6.setFormat("Times New Roman", 48);
+					add(shopText6);
 					rebirth.alpha = 0.1;
 				}
 			}
@@ -284,12 +314,12 @@ class PlayState extends FlxState
 					if (number >= shopNumber4)
 					{
 						number -= shopNumber4;
-						numberMultiplier += 5;
-						shopNumberMultiplier4 += 5;
+						numberMultiplier += (5 * rebirthNumber);
+						shopNumberMultiplier4 += (5 * rebirthNumber);
 						shopNumber4 += (5 + shopNumberMultiplier4);
 						shop4.alpha = 0.1;
 						remove(shopText4);
-						shopText4 = new FlxText(980, 360, 0, '+5 multiplier\n${shopNumber4} lobotomies', 48);
+						shopText4 = new FlxText(980, 360, 0, '+${shopNumberShit4} multiplier\n${shopNumber4} lobotomies', 48);
 						shopText4.setFormat("Times New Roman", 48);
 						add(shopText4);
 						updateMultiplier();
@@ -300,12 +330,12 @@ class PlayState extends FlxState
 					if (number >= shopNumber5)
 					{
 						number -= shopNumber5;
-						numberMultiplier += 8;
-						shopNumberMultiplier5 += 8;
+						numberMultiplier += (8 * rebirthNumber);
+						shopNumberMultiplier5 += (8 * rebirthNumber);
 						shopNumber5 += (8 + shopNumberMultiplier5);
 						shop5.alpha = 0.1;
 						remove(shopText5);
-						shopText5 = new FlxText(980, 480, 0, '+8 multiplier\n${shopNumber5} lobotomies', 48);
+						shopText5 = new FlxText(980, 480, 0, '+${shopNumberShit5} multiplier\n${shopNumber5} lobotomies', 48);
 						shopText5.setFormat("Times New Roman", 48);
 						add(shopText5);
 						updateMultiplier();
@@ -316,12 +346,12 @@ class PlayState extends FlxState
 					if (number >= shopNumber6)
 					{
 						number -= shopNumber6;
-						numberMultiplier += 15;
-						shopNumberMultiplier6 += 15;
+						numberMultiplier += (15 * rebirthNumber);
+						shopNumberMultiplier6 += (15 * rebirthNumber);
 						shopNumber6 += (15 + shopNumberMultiplier6);
 						shop6.alpha = 0.1;
 						remove(shopText6);
-						shopText6 = new FlxText(980, 600, 0, '+15 multiplier\n${shopNumber6} lobotomies', 48);
+						shopText6 = new FlxText(980, 600, 0, '+${shopNumberShit6} multiplier\n${shopNumber6} lobotomies', 48);
 						shopText6.setFormat("Times New Roman", 48);
 						add(shopText6);
 						updateMultiplier();
