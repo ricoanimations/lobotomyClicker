@@ -3,11 +3,9 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
-import flixel.math.FlxRandom;
 import flixel.sound.FlxSound;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import haxe.Int64;
 
 class PlayState extends FlxState
 {
@@ -16,14 +14,15 @@ class PlayState extends FlxState
 	var rebirth:FlxSprite;
 	var rebirthText:FlxText;
 	var rebirthTextCurrent:FlxText;
-	var rebirthNumber:Int64 = 1;
-	var rebirthMinimum:Int64 = 50000;
+	var rebirthNumber:Float = 1;
+	var rebirthMinimum:Float = 50000;
 	var shop:FlxSprite;
 	var shop2:FlxSprite;
 	var shop3:FlxSprite;
 	var shop4:FlxSprite;
 	var shop5:FlxSprite;
 	var shop6:FlxSprite;
+	var cover:FlxSprite;
 	var easteregg:FlxSprite;
 	var easteregg2:FlxSprite;
 	var shopText:FlxText;
@@ -34,26 +33,28 @@ class PlayState extends FlxState
 	var shopText6:FlxText;
 	var lobotomies:FlxText;
 	var multiplierText:FlxText;
-	var number:Int64 = 0;
-	var numberMultiplier:Int64 = 0;
-	var shopNumber:Int64 = 15;
-	var shopNumber2:Int64 = 40;
-	var shopNumber3:Int64 = 70;
-	var shopNumber4:Int64 = 120;
-	var shopNumber5:Int64 = 200;
-	var shopNumber6:Int64 = 450;
-	var shopNumberMultiplier:Int64 = 1;
-	var shopNumberMultiplier2:Int64 = 2;
-	var shopNumberMultiplier3:Int64 = 3;
-	var shopNumberMultiplier4:Int64 = 5;
-	var shopNumberMultiplier5:Int64 = 8;
-	var shopNumberMultiplier6:Int64 = 15;
-	var shopNumberShit:Int64 = 1;
-	var shopNumberShit2:Int64 = 2;
-	var shopNumberShit3:Int64 = 3;
-	var shopNumberShit4:Int64 = 5;
-	var shopNumberShit5:Int64 = 8;
-	var shopNumberShit6:Int64 = 15;
+	var coverText:FlxText;
+	var number:Float = 0;
+	var numberMultiplier:Float = 0;
+	var shopNumber:Float = 15;
+	var shopNumber2:Float = 40;
+	var shopNumber3:Float = 70;
+	var shopNumber4:Float = 120;
+	var shopNumber5:Float = 200;
+	var shopNumber6:Float = 450;
+	var shopNumberMultiplier:Float = 1;
+	var shopNumberMultiplier2:Float = 2;
+	var shopNumberMultiplier3:Float = 3;
+	var shopNumberMultiplier4:Float = 5;
+	var shopNumberMultiplier5:Float = 8;
+	var shopNumberMultiplier6:Float = 15;
+	var shopNumberShit:Float = 1;
+	var shopNumberShit2:Float = 2;
+	var shopNumberShit3:Float = 3;
+	var shopNumberShit4:Float = 5;
+	var shopNumberShit5:Float = 8;
+	var shopNumberShit6:Float = 15;
+	var restarts:Float = 0;
 	var playMusic:Bool = true;
 	var playSFX:Bool = true;
 	var music:FlxSprite;
@@ -62,6 +63,8 @@ class PlayState extends FlxState
 	var sfxText:FlxText;
 	var randomNumber:Int;
 	var whattheSFX:FlxSound;
+	var rebirthMultiply:Float = 1;
+	
 	override public function create()
 	{
 		super.create();
@@ -92,7 +95,7 @@ class PlayState extends FlxState
 		rebirthText = new FlxText(480, 600, 0, 'rebirth\n${rebirthMinimum} lobotomies', 48);
 		rebirthText.setFormat("Times New Roman", 48);
 		add(rebirthText);
-		rebirthTextCurrent = new FlxText(400, 60, 0, 'current rebirths: ${rebirthNumber - 1}', 48);
+		rebirthTextCurrent = new FlxText(400, 60, 0, 'total rebirths: ${rebirthNumber - 1}', 48);
 		rebirthTextCurrent.setFormat("Times New Roman", 48);
 		add(rebirthTextCurrent);
 
@@ -260,24 +263,19 @@ class PlayState extends FlxState
 					numberMultiplier = 0;
 					rebirthNumber += 1;
 					rebirthMinimum *= 3;
-					shopNumberMultiplier *= rebirthNumber;
-					shopNumberMultiplier2 *= rebirthNumber;
-					shopNumberMultiplier3 *= rebirthNumber;
-					shopNumberMultiplier4 *= rebirthNumber;
-					shopNumberMultiplier5 *= rebirthNumber;
-					shopNumberMultiplier6 *= rebirthNumber;
-					shopNumberShit *= rebirthNumber;
-					shopNumberShit2 *= rebirthNumber;
-					shopNumberShit3 *= rebirthNumber;
-					shopNumberShit4 *= rebirthNumber;
-					shopNumberShit5 *= rebirthNumber;
-					shopNumberShit6 *= rebirthNumber;
+					rebirthMultiply *= 2;
 					shopNumber = 15;
 					shopNumber2 = 40;
 					shopNumber3 = 70;
 					shopNumber4 = 120;
 					shopNumber5 = 200;
 					shopNumber6 = 450;
+					shopNumberShit *= 2;
+					shopNumberShit2 *= 2;
+					shopNumberShit3 *= 2;
+					shopNumberShit4 *= 2;
+					shopNumberShit5 *= 2;
+					shopNumberShit6 *= 2;
 					remove(lobotomies);
 					lobotomies = new FlxText(0, 100, 0, '${number} lobotomies', 48);
 					lobotomies.setFormat("Times New Roman", 48);
@@ -287,7 +285,7 @@ class PlayState extends FlxState
 					rebirthText.setFormat("Times New Roman", 48);
 					add(rebirthText);
 					remove(rebirthTextCurrent);
-					rebirthTextCurrent = new FlxText(400, 60, 0, 'current rebirths: ${rebirthNumber - 1}', 48);
+					rebirthTextCurrent = new FlxText(400, 60, 0, 'total rebirths: ${rebirthNumber - 1}', 48);
 					rebirthTextCurrent.setFormat("Times New Roman", 48);
 					add(rebirthTextCurrent);
 					remove(multiplierText);
@@ -335,8 +333,7 @@ class PlayState extends FlxState
 					if (number >= shopNumber)
 					{
 						number -= shopNumber;
-						numberMultiplier += shopNumberShit;
-						shopNumberMultiplier += shopNumberShit;
+						numberMultiplier += (1 * rebirthMultiply);
 						shopNumber += (1 + shopNumberMultiplier);
 						shop.alpha = 0.1;
 						remove(shopText);
@@ -351,8 +348,7 @@ class PlayState extends FlxState
 					if (number >= shopNumber2)
 					{
 						number -= shopNumber2;
-						numberMultiplier += shopNumberShit2;
-						shopNumberMultiplier2 += shopNumberShit2;
+						numberMultiplier += (2 * rebirthMultiply);
 						shopNumber2 += (2 + shopNumberMultiplier2);
 						shop2.alpha = 0.1;
 						remove(shopText2);
@@ -367,8 +363,7 @@ class PlayState extends FlxState
 					if (number >= shopNumber3)
 					{
 						number -= shopNumber3;
-						numberMultiplier += shopNumberShit3;
-						shopNumberMultiplier3 += shopNumberShit3;
+						numberMultiplier += (3 * rebirthMultiply);
 						shopNumber3 += (3 + shopNumberMultiplier3);
 						shop3.alpha = 0.1;
 						remove(shopText3);
@@ -400,8 +395,7 @@ class PlayState extends FlxState
 					if (number >= shopNumber4)
 					{
 						number -= shopNumber4;
-						numberMultiplier += shopNumberShit4;
-						shopNumberMultiplier4 += shopNumberShit4;
+						numberMultiplier += (5 * rebirthMultiply);
 						shopNumber4 += (5 + shopNumberMultiplier4);
 						shop4.alpha = 0.1;
 						remove(shopText4);
@@ -416,8 +410,7 @@ class PlayState extends FlxState
 					if (number >= shopNumber5)
 					{
 						number -= shopNumber5;
-						numberMultiplier += shopNumberShit5;
-						shopNumberMultiplier5 += shopNumberShit5;
+						numberMultiplier += (8 * rebirthMultiply);
 						shopNumber5 += (8 + shopNumberMultiplier5);
 						shop5.alpha = 0.1;
 						remove(shopText5);
@@ -432,8 +425,7 @@ class PlayState extends FlxState
 					if (number >= shopNumber6)
 					{
 						number -= shopNumber6;
-						numberMultiplier += shopNumberShit6;
-						shopNumberMultiplier6 += shopNumberShit6;
+						numberMultiplier += (15 * rebirthMultiply);
 						shopNumber6 += (15 + shopNumberMultiplier6);
 						shop6.alpha = 0.1;
 						remove(shopText6);
