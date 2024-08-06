@@ -34,6 +34,8 @@ class PlayState extends FlxState
 	var lobotomies:FlxText;
 	var multiplierText:FlxText;
 	var coverText:FlxText;
+	var procedures:FlxText;
+	var name:String = '';
 	var number:Float = 0;
 	var numberMultiplier:Float = 0;
 	var shopNumber:Float = 15;
@@ -54,6 +56,7 @@ class PlayState extends FlxState
 	var shopNumberShit4:Float = 5;
 	var shopNumberShit5:Float = 8;
 	var shopNumberShit6:Float = 15;
+	var rebirthMultiply:Float = 1;
 	var restarts:Float = 0;
 	var playMusic:Bool = true;
 	var playSFX:Bool = true;
@@ -62,8 +65,8 @@ class PlayState extends FlxState
 	var musicText:FlxText;
 	var sfxText:FlxText;
 	var randomNumber:Int;
+	var nameGenerator:Int;
 	var whattheSFX:FlxSound;
-	var rebirthMultiply:Float = 1;
 	
 	override public function create()
 	{
@@ -79,9 +82,13 @@ class PlayState extends FlxState
 		face.screenCenter();
 		add(face);
 
-		lobotomies = new FlxText(0, 100, 0, '${number} lobotomies', 48);
+		lobotomies = new FlxText(0, 150, 0, '${number} lobotomies', 48);
 		lobotomies.setFormat("Times New Roman", 48);
 		add(lobotomies);
+		procedures = new FlxText(0, 100, 0, name + "'s procedures", 48);
+		procedures.setFormat("Times New Roman", 48);
+		add(procedures);
+
 		multiplierText = new FlxText(400, 0, 0, 'current multiplier: ${numberMultiplier + 1}', 48);
 		multiplierText.setFormat("Times New Roman", 48);
 		add(multiplierText);
@@ -172,6 +179,10 @@ class PlayState extends FlxState
 		sfxText.setFormat("Times New Roman", 24);
 		add(sfxText);
 		playdaMusic();
+		if (!FlxG.save.data.customName)
+		{
+			generateNames();
+		}
 	}
 
 	override public function update(elapsed:Float)
@@ -189,7 +200,7 @@ class PlayState extends FlxState
 					playdaSFX();
 				}
 				remove(lobotomies);
-				lobotomies = new FlxText(0, 100, 0, '${number} lobotomies', 48);
+				lobotomies = new FlxText(0, 150, 0, '${number} lobotomies', 48);
 				lobotomies.setFormat("Times New Roman", 48);
 				add(lobotomies);
 			}
@@ -253,6 +264,18 @@ class PlayState extends FlxState
 				sfx.alpha = 0.5;
 			}
 		}
+		if (FlxG.mouse.overlaps(procedures))
+		{
+			procedures.alpha = 0.5;
+			if (FlxG.mouse.justPressed)
+			{
+				procedures.alpha = 0.1;
+			}
+			if (FlxG.mouse.justReleased)
+			{
+				procedures.alpha = 1;
+			}
+		}
 		if (FlxG.mouse.overlaps(rebirth))
 		{
 			if (FlxG.mouse.justPressed)
@@ -277,7 +300,7 @@ class PlayState extends FlxState
 					shopNumberShit5 *= 2;
 					shopNumberShit6 *= 2;
 					remove(lobotomies);
-					lobotomies = new FlxText(0, 100, 0, '${number} lobotomies', 48);
+					lobotomies = new FlxText(0, 150, 0, '${number} lobotomies', 48);
 					lobotomies.setFormat("Times New Roman", 48);
 					add(lobotomies);
 					remove(rebirthText);
@@ -374,7 +397,7 @@ class PlayState extends FlxState
 					}
 				}
 				remove(lobotomies);
-				lobotomies = new FlxText(0, 100, 0, '${number} lobotomies', 48);
+				lobotomies = new FlxText(0, 150, 0, '${number} lobotomies', 48);
 				lobotomies.setFormat("Times New Roman", 48);
 				add(lobotomies);
 				faceChange();
@@ -436,7 +459,7 @@ class PlayState extends FlxState
 					}
 				}
 				remove(lobotomies);
-				lobotomies = new FlxText(0, 100, 0, '${number} lobotomies', 48);
+				lobotomies = new FlxText(0, 150, 0, '${number} lobotomies', 48);
 				lobotomies.setFormat("Times New Roman", 48);
 				add(lobotomies);
 				faceChange();
@@ -722,5 +745,48 @@ class PlayState extends FlxState
 	private function stopdaSFX()
 	{
 		whattheSFX.volume = 0;
+	}
+	private function generateNames()
+	{
+		nameGenerator = FlxG.random.int(0, 15);
+		switch (nameGenerator)
+		{
+			case 0:
+				name = 'Lobotomy Enjoyer';
+			case 1:
+				name = "KnightRy's TERRIBLE";
+			case 2:
+				name = 'Squidward';
+			case 3:
+				name = 'Drizzy Drake';
+			case 4:
+				name = 'Max Design Pro';
+			case 5:
+				name = 'GEGAGEGIGEGAGEGAGO';
+			case 6:
+				name = 'Cookie Clicker Ripoff';
+			case 7:
+				name = "Rico's GREAT";
+			case 8:
+				name = 'Ballsack';
+			case 9:
+				name = 'Diddy';
+			case 10:
+				name = 'ERM WHAT THE SIGMA';
+			case 11:
+				name = "GoAwayMonday's SLIGHTLY ABOVE AVERAGE";
+			case 12:
+				name = '22 Savage';
+			case 13:
+				name = 'Moldy Cabbage';
+			case 14:
+				name = 'Bill Nye the Science Guy';
+			case 15:
+				name = 'liamthesupercrafter';
+		}
+		remove(procedures);
+		procedures = new FlxText(0, 100, 0, name + "'s procedures", 48);
+		procedures.setFormat("Times New Roman", 48);
+		add(procedures);
 	}
 }
