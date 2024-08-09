@@ -5,6 +5,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.sound.FlxSound;
 import flixel.text.FlxText;
+import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 
 class PlayState extends FlxState
@@ -193,6 +194,7 @@ class PlayState extends FlxState
 			if (FlxG.mouse.justPressed)
 			{
 				face.scale.set(0.275, 0.275);
+				face.screenCenter();
 				face.updateHitbox();
 				number += ((1 + numberMultiplier) * rebirthNumber);
 				if (playSFX == true)
@@ -207,6 +209,7 @@ class PlayState extends FlxState
 			if (FlxG.mouse.justReleased)
 			{
 				face.scale.set(0.25, 0.25);
+				face.screenCenter();
 				face.updateHitbox();
 			}
 		}
@@ -270,6 +273,7 @@ class PlayState extends FlxState
 			if (FlxG.mouse.justPressed)
 			{
 				procedures.alpha = 0.1;
+				nameChange();
 			}
 			if (FlxG.mouse.justReleased)
 			{
@@ -534,11 +538,13 @@ class PlayState extends FlxState
 			if (FlxG.mouse.justPressed)
 			{
 				face.scale.set(0.275, 0.275);
+				face.screenCenter();
 				face.updateHitbox();
 			}
 			else if (FlxG.mouse.justReleased)
 			{
 				face.scale.set(0.25, 0.25);
+				face.screenCenter();
 				face.updateHitbox();
 			}
 		}
@@ -551,10 +557,8 @@ class PlayState extends FlxState
 		add(multiplierText);
 	}
 
-	private function faceChange()
+	private function changeDaBG()
 	{
-		remove(bg);
-		bg = new FlxSprite();
 		if (number < 15)
 		{
 			bg.makeGraphic(1280, 720, 0xFFC8C8C8);
@@ -603,9 +607,10 @@ class PlayState extends FlxState
 		{
 			bg.makeGraphic(1280, 720, 0xFFC00000);
 		}
-		add(bg);
-		remove(face);
-		face = new FlxSprite();
+	}
+
+	private function changeDaFaces()
+	{
 		if (number < 15)
 		{
 			face.loadGraphic("assets/images/unrated.png");
@@ -654,6 +659,17 @@ class PlayState extends FlxState
 		{
 			face.loadGraphic("assets/images/extremedemon.png");
 		}
+	}
+
+	private function faceChange()
+	{
+		remove(bg);
+		bg = new FlxSprite();
+		changeDaBG();
+		add(bg);
+		remove(face);
+		face = new FlxSprite();
+		changeDaFaces();
 		face.scale.set(0.25, 0.25);
 		face.updateHitbox();
 		face.screenCenter();
@@ -754,39 +770,56 @@ class PlayState extends FlxState
 			case 0:
 				name = 'Lobotomy Enjoyer';
 			case 1:
-				name = "KnightRy's TERRIBLE";
+				name = 'KnightRy';
 			case 2:
-				name = 'Squidward';
+				name = 'Counting';
 			case 3:
 				name = 'Drizzy Drake';
 			case 4:
 				name = 'Max Design Pro';
 			case 5:
-				name = 'GEGAGEGIGEGAGEGAGO';
+				name = 'Nuggets';
 			case 6:
-				name = 'Cookie Clicker Ripoff';
+				name = 'Cookie';
 			case 7:
-				name = "Rico's GREAT";
+				name = 'Rico';
 			case 8:
-				name = 'Ballsack';
+				name = 'Tatsu';
 			case 9:
 				name = 'Diddy';
 			case 10:
-				name = 'ERM WHAT THE SIGMA';
+				name = 'Carl';
 			case 11:
-				name = "GoAwayMonday's SLIGHTLY ABOVE AVERAGE";
+				name = 'GoAwayMonday';
 			case 12:
-				name = '22 Savage';
+				name = 'PopTartGuy';
 			case 13:
-				name = 'Moldy Cabbage';
+				name = 'Dyno';
 			case 14:
-				name = 'Bill Nye the Science Guy';
+				name = 'Kris';
 			case 15:
-				name = 'liamthesupercrafter';
+				name = 'Liam';
 		}
 		remove(procedures);
 		procedures = new FlxText(0, 100, 0, name + "'s procedures", 48);
 		procedures.setFormat("Times New Roman", 48);
 		add(procedures);
+	}
+	private function nameChange()
+	{
+		var changeDaName = new FlxSprite();
+		changeDaName.makeGraphic(640, 360, FlxColor.BLACK);
+		changeDaName.alpha = 0.5;
+		changeDaName.screenCenter();
+		add(changeDaName);
+		var enterButton = new FlxSprite();
+		enterButton.makeGraphic(160, 90, FlxColor.LIME);
+		enterButton.alpha = 0.5;
+		enterButton.x = 500;
+		enterButton.y = 600;
+		add(enterButton);
+		var enterButtonText = new FlxText(500, 600, 0, 'ENTER');
+		enterButtonText.setFormat("Times New Roman", 48);
+		add(enterButtonText);
 	}
 }
