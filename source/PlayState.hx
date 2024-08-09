@@ -5,7 +5,6 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.sound.FlxSound;
 import flixel.text.FlxText;
-import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 
 class PlayState extends FlxState
@@ -36,7 +35,9 @@ class PlayState extends FlxState
 	var multiplierText:FlxText;
 	var coverText:FlxText;
 	var procedures:FlxText;
+	var versionText:FlxText;
 	var name:String = '';
+	var updateVersion:String = 'Beta 3.6';
 	var number:Float = 0;
 	var numberMultiplier:Float = 0;
 	var shopNumber:Float = 15;
@@ -184,6 +185,9 @@ class PlayState extends FlxState
 		{
 			generateNames();
 		}
+		versionText = new FlxText(100, 690, 0, 'Version of Game: ${updateVersion}', 24);
+		versionText.setFormat("Times New Roman", 24);
+		add(versionText);
 	}
 
 	override public function update(elapsed:Float)
@@ -265,19 +269,6 @@ class PlayState extends FlxState
 			if (FlxG.mouse.justReleased)
 			{
 				sfx.alpha = 0.5;
-			}
-		}
-		if (FlxG.mouse.overlaps(procedures))
-		{
-			procedures.alpha = 0.5;
-			if (FlxG.mouse.justPressed)
-			{
-				procedures.alpha = 0.1;
-				nameChange();
-			}
-			if (FlxG.mouse.justReleased)
-			{
-				procedures.alpha = 1;
 			}
 		}
 		if (FlxG.mouse.overlaps(rebirth))
@@ -778,7 +769,7 @@ class PlayState extends FlxState
 			case 4:
 				name = 'Max Design Pro';
 			case 5:
-				name = 'Nuggets';
+				name = 'Nugget';
 			case 6:
 				name = 'Cookie';
 			case 7:
@@ -796,7 +787,7 @@ class PlayState extends FlxState
 			case 13:
 				name = 'Dyno';
 			case 14:
-				name = 'Kris';
+				name = 'MrBeast';
 			case 15:
 				name = 'Liam';
 		}
@@ -804,22 +795,5 @@ class PlayState extends FlxState
 		procedures = new FlxText(0, 100, 0, name + "'s procedures", 48);
 		procedures.setFormat("Times New Roman", 48);
 		add(procedures);
-	}
-	private function nameChange()
-	{
-		var changeDaName = new FlxSprite();
-		changeDaName.makeGraphic(640, 360, FlxColor.BLACK);
-		changeDaName.alpha = 0.5;
-		changeDaName.screenCenter();
-		add(changeDaName);
-		var enterButton = new FlxSprite();
-		enterButton.makeGraphic(160, 90, FlxColor.LIME);
-		enterButton.alpha = 0.5;
-		enterButton.x = 500;
-		enterButton.y = 600;
-		add(enterButton);
-		var enterButtonText = new FlxText(500, 600, 0, 'ENTER');
-		enterButtonText.setFormat("Times New Roman", 48);
-		add(enterButtonText);
 	}
 }
