@@ -39,7 +39,7 @@ class TitleState extends FlxState
 			enter.alpha = 0.5;
 			if (FlxG.mouse.justPressed)
 			{
-				FlxG.switchState(new PlayState());
+				FlxG.switchState(new FirstWorld());
 			}
 			if (FlxG.mouse.justReleased)
 			{

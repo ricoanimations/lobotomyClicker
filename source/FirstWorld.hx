@@ -7,7 +7,7 @@ import flixel.sound.FlxSound;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 
-class PlayState extends FlxState
+class FirstWorld extends FlxState
 {
 	var bg:FlxSprite;
 	var face:FlxSprite;
