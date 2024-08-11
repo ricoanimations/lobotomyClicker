@@ -36,8 +36,10 @@ class PlayState extends FlxState
 	var coverText:FlxText;
 	var procedures:FlxText;
 	var versionText:FlxText;
+	var buy:FlxText;
+	var sell:FlxText;
 	var name:String = '';
-	var updateVersion:String = 'Beta 3.6';
+	var updateVersion:String = 'Beta 4.0';
 	var number:Float = 0;
 	var numberMultiplier:Float = 0;
 	var shopNumber:Float = 15;
@@ -62,6 +64,8 @@ class PlayState extends FlxState
 	var restarts:Float = 0;
 	var playMusic:Bool = true;
 	var playSFX:Bool = true;
+	var buyOption:Bool = true;
+	var sellOption:Bool = false;
 	var music:FlxSprite;
 	var sfx:FlxSprite;
 	var musicText:FlxText;
@@ -188,6 +192,28 @@ class PlayState extends FlxState
 		versionText = new FlxText(100, 690, 0, 'Version of Game: ${updateVersion}', 24);
 		versionText.setFormat("Times New Roman", 24);
 		add(versionText);
+		buy = new FlxText(900, 0, 0, 'BUY', 32);
+		buy.setFormat("Times New Roman", 32);
+		if (buyOption == true)
+		{
+			buy.alpha = 1;
+		}
+		else
+		{
+			buy.alpha = 0.5;
+		}
+		add(buy);
+		sell = new FlxText(890, 50, 0, 'SELL', 32);
+		sell.setFormat("Times New Roman", 32);
+		if (sellOption == true)
+		{
+			sell.alpha = 1;
+		}
+		else
+		{
+			sell.alpha = 0.5;
+		}
+		add(sell);
 	}
 
 	override public function update(elapsed:Float)
@@ -216,6 +242,38 @@ class PlayState extends FlxState
 				face.screenCenter();
 				face.updateHitbox();
 			}
+		}
+		if (FlxG.mouse.overlaps(buy))
+		{
+			buy.alpha = 1;
+			if (FlxG.mouse.justPressed)
+			{
+				buyOption = true;
+				sellOption = false;
+			}
+		}
+		if (FlxG.mouse.overlaps(sell))
+		{
+			sell.alpha = 1;
+			if (FlxG.mouse.justPressed && sellOption == false)
+			{
+				sellOption = true;
+				buyOption = false;
+				shopNumber = 5;
+				shopNumber2 = 13;
+				shopNumber3 = 23;
+				shopNumber4 = 40;
+				shopNumber5 = 67;
+				shopNumber6 = 150;
+			}
+			if (FlxG.mouse.justReleased)
+			{
+				sell.alpha = 0.5;
+			}
+		}
+		else if (FlxG.mouse.overlaps(sell) == false && sellOption == false)
+		{
+			sell.alpha = 0.5;
 		}
 		if (FlxG.mouse.overlaps(music))
 		{
@@ -282,12 +340,24 @@ class PlayState extends FlxState
 					rebirthNumber += 1;
 					rebirthMinimum *= 3;
 					rebirthMultiply *= 2;
-					shopNumber = 15;
-					shopNumber2 = 40;
-					shopNumber3 = 70;
-					shopNumber4 = 120;
-					shopNumber5 = 200;
-					shopNumber6 = 450;
+					if (buyOption == true)
+					{
+						shopNumber = 15;
+						shopNumber2 = 40;
+						shopNumber3 = 70;
+						shopNumber4 = 120;
+						shopNumber5 = 200;
+						shopNumber6 = 450;
+					}
+					if (sellOption == true)
+					{
+						shopNumber = 5;
+						shopNumber2 = 13;
+						shopNumber3 = 23;
+						shopNumber4 = 40;
+						shopNumber5 = 67;
+						shopNumber6 = 150;
+					}
 					shopNumberShit *= 2;
 					shopNumberShit2 *= 2;
 					shopNumberShit3 *= 2;
@@ -350,7 +420,14 @@ class PlayState extends FlxState
 				{
 					if (number >= shopNumber)
 					{
-						number -= shopNumber;
+						if (buyOption == true)
+						{
+							number -= shopNumber;
+						}
+						if (sellOption == true)
+						{
+							number += shopNumber;
+						}
 						numberMultiplier += (1 * rebirthMultiply);
 						shopNumber += (1 + shopNumberMultiplier);
 						shop.alpha = 0.1;
@@ -538,6 +615,28 @@ class PlayState extends FlxState
 				face.screenCenter();
 				face.updateHitbox();
 			}
+		}
+		if (buyOption == true)
+		{
+			buy.alpha = 1;
+		}
+		else
+		{
+			buy.alpha = 0.5;
+		}
+		if (sellOption == true)
+		{
+			sell.alpha = 1;
+			shopNumber = 5;
+			shopNumber2 = 13;
+			shopNumber3 = 23;
+			shopNumber4 = 40;
+			shopNumber5 = 67;
+			shopNumber6 = 150;
+		}
+		else
+		{
+			sell.alpha = 0.5;
 		}
 	}
 	private function updateMultiplier()
