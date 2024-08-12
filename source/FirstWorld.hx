@@ -70,7 +70,6 @@ class FirstWorld extends FlxState
 	var sfx:FlxSprite;
 	var musicText:FlxText;
 	var sfxText:FlxText;
-	var randomNumber:Int;
 	var nameGenerator:Int;
 	var whattheSFX:FlxSound;
 	
@@ -768,24 +767,9 @@ class FirstWorld extends FlxState
 	}
 	private function playdaMusic()
 	{
-		randomNumber = FlxG.random.int(0, 2);
-		switch (randomNumber)
+		if (FlxG.sound.music == null)
 		{
-			case 0:
-				if (FlxG.sound.music == null)
-				{
-					FlxG.sound.playMusic("assets/music/stereomadness.ogg", 1, true);
-				}
-			case 1:
-				if (FlxG.sound.music == null)
-				{
-					FlxG.sound.playMusic("assets/music/backontrack.ogg", 1, true);
-				}
-			case 2:
-				if (FlxG.sound.music == null)
-				{
-					FlxG.sound.playMusic("assets/music/polargeist.ogg", 1, true);
-				}
+			FlxG.sound.playMusic("assets/music/stereomadness.ogg", 1, true);
 		}
 		FlxG.sound.music.volume = 1;
 	}

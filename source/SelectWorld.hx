@@ -4,7 +4,9 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.text.FlxText;
+import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
 
 class SelectWorld extends TitleState
 {
@@ -87,7 +89,26 @@ class SelectWorld extends TitleState
 		{
 			if (FlxG.mouse.justPressed)
 			{
-				FlxG.switchState(new FirstWorld());
+				FlxTween.tween(world2, {alpha: 0}, 0.5);
+				FlxTween.tween(world3, {alpha: 0}, 0.5);
+				FlxTween.tween(world4, {alpha: 0}, 0.5);
+				FlxTween.tween(world5, {alpha: 0}, 0.5);
+				FlxTween.tween(world6, {alpha: 0}, 0.5);
+				FlxTween.tween(world7, {alpha: 0}, 0.5);
+				FlxTween.tween(world8, {alpha: 0}, 0.5);
+				FlxTween.tween(world1, {x: FlxG.width / 2 - world1.width / 2, y: FlxG.height / 2 - world1.height / 2}, 0.5);
+				new FlxTimer().start(1, function(world1Small:FlxTimer)
+				{
+					FlxTween.tween(world1.scale, {x: 0.9, y: 0.9}, 0.4);
+				});
+				new FlxTimer().start(1.4, function(world1Scale:FlxTimer)
+				{
+					FlxTween.tween(world1.scale, {x: 100, y: 100}, 2);
+				});
+				new FlxTimer().start(3.4, function(world1Timer:FlxTimer)
+				{
+					FlxG.switchState(new FirstWorld());
+				});
 			}
 		}
 	}
