@@ -19,15 +19,15 @@ class TitleState extends FlxState
 		bg.makeGraphic(1280, 720, 0xFFC8C8C8);
 		add(bg);
 		logo = new FlxText();
-		logo.x = FlxG.width / 2 - logo.width / 2;
-		logo.y = FlxG.height / 2 - logo.height / 2;
+		logo.x = 400;
+		logo.y = 400;
 		logo.text = 'LOBOTOMY CLICKER';
-		logo.setFormat("assets/fonts/pusab.otf", 48);
+		logo.setFormat("assets/fonts/pusab.otf", 64);
 		add(logo);
 		enter = new FlxSprite();
 		enter.makeGraphic(160, 90, FlxColor.LIME);
 		enter.x = FlxG.width / 2 - enter.width / 2;
-		enter.y = 500;
+		enter.y = FlxG.height / 2 - enter.height / 2;
 		add(enter);
 	}
 
@@ -39,7 +39,7 @@ class TitleState extends FlxState
 			enter.alpha = 0.5;
 			if (FlxG.mouse.justPressed)
 			{
-				FlxG.switchState(new FirstWorld());
+				FlxG.switchState(new SelectWorld());
 			}
 			if (FlxG.mouse.justReleased)
 			{
