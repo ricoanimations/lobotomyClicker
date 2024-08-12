@@ -38,6 +38,46 @@ class SelectWorld extends TitleState
 		world2.y = 40;
 		world2.antialiasing = true;
 		add(world2);
+		world3 = new FlxSprite();
+		world3.loadGraphic("assets/images/worlds/locked.png");
+		world3.x = 648;
+		world3.y = 40;
+		world3.antialiasing = true;
+		add(world3);
+
+		world4 = new FlxSprite();
+		world4.loadGraphic("assets/images/worlds/locked.png");
+		world4.x = 964;
+		world4.y = 40;
+		world4.antialiasing = true;
+		add(world4);
+
+		world5 = new FlxSprite();
+		world5.loadGraphic("assets/images/worlds/locked.png");
+		world5.x = 16;
+		world5.y = 380;
+		world5.antialiasing = true;
+		add(world5);
+
+		world6 = new FlxSprite();
+		world6.loadGraphic("assets/images/worlds/locked.png");
+		world6.x = 332;
+		world6.y = 380;
+		world6.antialiasing = true;
+		add(world6);
+		world7 = new FlxSprite();
+		world7.loadGraphic("assets/images/worlds/locked.png");
+		world7.x = 648;
+		world7.y = 380;
+		world7.antialiasing = true;
+		add(world7);
+
+		world8 = new FlxSprite();
+		world8.loadGraphic("assets/images/worlds/locked.png");
+		world8.x = 964;
+		world8.y = 380;
+		world8.antialiasing = true;
+		add(world8);
 	}
 
 	override public function update(elapsed:Float)
