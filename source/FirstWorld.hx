@@ -70,6 +70,7 @@ class FirstWorld extends FlxState
 	var sfx:FlxSprite;
 	var musicText:FlxText;
 	var sfxText:FlxText;
+	var stars:FlxText;
 	var nameGenerator:Int;
 	var whattheSFX:FlxSound;
 	
@@ -878,5 +879,14 @@ class FirstWorld extends FlxState
 		procedures = new FlxText(0, 100, 0, name + "'s procedures", 48);
 		procedures.setFormat("Times New Roman", 48);
 		add(procedures);
+	}
+	private function starsAdd()
+	{
+		if (number >= 5000000)
+		{
+			stars = new FlxText(400, 120, 0, 'stars: ${stars}', 48);
+			stars.setFormat("Times New Roman", 48);
+			add(stars);
+		}
 	}
 }
