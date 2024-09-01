@@ -68,21 +68,14 @@ class PingPong extends FlxState
 
 		if (FlxG.overlap(face, player))
 		{
-			var randomNumber = FlxG.random.int(0, 3);
+			face.velocity.y = FlxG.random.int(-100, 100);
+			var randomNumber = FlxG.random.int(0, 5);
 			switch (randomNumber)
 			{
-				case 0 | 1 | 2:
-					opponent.velocity.y = 240;
-					if (opponent.y > face.y)
-					{
-						opponent.y = face.y;
-					}
-				case 3:
-					opponent.velocity.y = -240;
-					if (opponent.y < 0)
-					{
-						opponent.y = 0;
-					}
+				case 0 | 1 | 2 | 3 | 4:
+					opponent.velocity.y = face.velocity.y;
+				case 5:
+					opponent.velocity.y = (face.velocity.y *= -1);
 			}
 			if (face.velocity.x > 0)
 			{
@@ -110,26 +103,34 @@ class PingPong extends FlxState
 
 		if (face.x > FlxG.width)
 		{
-			face.x = FlxG.width;
+			remove(face);
+			face = new FlxSprite();
+			face.loadGraphic("assets/images/unrated.png");
+			face.scale.set(0.1, 0.1);
+			face.updateHitbox();
+			face.x = FlxG.width / 2 - face.width / 2;
+			face.velocity.x = 500;
+			face.y = FlxG.height / 2 - face.height / 2;
+			add(face);
+			opponent.y = FlxG.height / 2 - opponent.height / 2;
 			oppscore += 1;
-			remove(oppscoreText);
-			oppscoreText = new FlxText();
 			oppscoreText.text = Std.string(oppscore);
-			oppscoreText.size = 48;
-			oppscoreText.x = 100;
-			add(oppscoreText);
 		}
 
 		if (face.x < (0 - face.width))
 		{
-			face.x = (0 - face.width) + 1;
+			remove(face);
+			face = new FlxSprite();
+			face.loadGraphic("assets/images/unrated.png");
+			face.scale.set(0.1, 0.1);
+			face.updateHitbox();
+			face.x = FlxG.width / 2 - face.width / 2;
+			face.velocity.x = 500;
+			face.y = FlxG.height / 2 - face.height / 2;
+			add(face);
+			opponent.y = FlxG.height / 2 - opponent.height / 2;
 			playscore += 1;
-			remove(playscoreText);
-			playscoreText = new FlxText();
 			playscoreText.text = Std.string(playscore);
-			playscoreText.size = 48;
-			playscoreText.x = FlxG.width - 100;
-			add(playscoreText);
 		}
 
 		if (player.y > (FlxG.height - player.height))
@@ -140,6 +141,23 @@ class PingPong extends FlxState
 		if (player.y < 0)
 		{
 			player.y = 0;
+		}
+		if (face.y < 0)
+		{
+			face.velocity.y = 100;
+		}
+		else if (face.y > (FlxG.height - face.height))
+		{
+			face.velocity.y = -100;
+		}
+
+		if (opponent.y > (FlxG.height - opponent.height))
+		{
+			opponent.y = FlxG.height - opponent.height;
+		}
+		else if (opponent.y < 0)
+		{
+			opponent.y = 0;
 		}
 	}
 }

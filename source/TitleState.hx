@@ -33,7 +33,7 @@ class TitleState extends FlxState
 		enter2 = new FlxSprite();
 		enter2.makeGraphic(160, 90, FlxColor.LIME);
 		enter2.x = FlxG.width / 2 - enter.width / 2;
-		enter2.y = 0;
+		enter2.y = (FlxG.height / 2 - enter.height / 2) + enter.height;
 		add(enter2);
 	}
 
