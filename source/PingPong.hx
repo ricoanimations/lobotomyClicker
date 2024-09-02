@@ -18,6 +18,8 @@ class PingPong extends FlxState
 	var playscore:Int = 0;
 	var oppscoreText:FlxText;
 	var playscoreText:FlxText;
+	var oppText:FlxText;
+	var playText:FlxText;
 
 	override public function create()
 	{
@@ -37,14 +39,14 @@ class PingPong extends FlxState
 		add(face);
 
 		opponent = new FlxSprite();
-		opponent.makeGraphic(50, 150, FlxColor.WHITE);
+		opponent.makeGraphic(50, 150, FlxColor.RED);
 		opponent.x = 100;
 		opponent.y = FlxG.height / 2 - opponent.height / 2;
 		opponent.velocity.y = 0;
 		add(opponent);
 
 		player = new FlxSprite();
-		player.makeGraphic(50, 150, FlxColor.WHITE);
+		player.makeGraphic(50, 150, 0xFF0080FF);
 		player.x = FlxG.width - 100;
 		player.y = FlxG.height / 2 - player.height / 2;
 		add(player);
@@ -52,14 +54,31 @@ class PingPong extends FlxState
 		oppscoreText = new FlxText();
 		oppscoreText.text = Std.string(oppscore);
 		oppscoreText.size = 48;
+		oppscoreText.color = FlxColor.RED;
 		oppscoreText.x = 100;
 		add(oppscoreText);
+
+		oppText = new FlxText();
+		oppText.text = 'OPPONENT';
+		oppText.size = 48;
+		oppText.color = FlxColor.RED;
+		oppText.x = 100;
+		oppText.y = 50;
+		add(oppText);
 
 		playscoreText = new FlxText();
 		playscoreText.text = Std.string(playscore);
 		playscoreText.size = 48;
+		playscoreText.color = 0xFF0080FF;
 		playscoreText.x = FlxG.width - 100;
 		add(playscoreText);
+		playText = new FlxText();
+		playText.text = 'PLAYER';
+		playText.size = 48;
+		playText.color = 0xFF0080FF;
+		playText.x = (FlxG.width - playText.width) - 100;
+		playText.y = 50;
+		add(playText);
 	}
 
 	override public function update(elapsed:Float)
@@ -91,12 +110,12 @@ class PingPong extends FlxState
 			}
 		}
 
-		if (FlxG.keys.pressed.UP)
+		if (FlxG.keys.anyPressed([UP, W]))
 		{
 			player.y -= 10;
 		}
 
-		if (FlxG.keys.pressed.DOWN)
+		if (FlxG.keys.anyPressed([DOWN, S]))
 		{
 			player.y += 10;
 		}
