@@ -259,12 +259,12 @@ class FirstWorld extends FlxState
 			{
 				sellOption = true;
 				buyOption = false;
-				shopNumber = 5;
-				shopNumber2 = 13;
-				shopNumber3 = 23;
-				shopNumber4 = 40;
-				shopNumber5 = 67;
-				shopNumber6 = 150;
+				shopNumber = Std.int(shopNumber / 3);
+				shopNumber2 = Std.int(shopNumber2 / 3);
+				shopNumber3 = Std.int(shopNumber3 / 3);
+				shopNumber4 = Std.int(shopNumber4 / 3);
+				shopNumber5 = Std.int(shopNumber5 / 3);
+				shopNumber6 = Std.int(shopNumber6 / 3);
 			}
 			if (FlxG.mouse.justReleased)
 			{
@@ -351,12 +351,36 @@ class FirstWorld extends FlxState
 					}
 					if (sellOption == true)
 					{
-						shopNumber = 5;
-						shopNumber2 = 13;
-						shopNumber3 = 23;
-						shopNumber4 = 40;
-						shopNumber5 = 67;
-						shopNumber6 = 150;
+						shopNumber = Std.int(shopNumber / 3);
+						shopNumber2 = Std.int(shopNumber2 / 3);
+						shopNumber3 = Std.int(shopNumber3 / 3);
+						shopNumber4 = Std.int(shopNumber4 / 3);
+						shopNumber5 = Std.int(shopNumber5 / 3);
+						shopNumber6 = Std.int(shopNumber6 / 3);
+						remove(shopText);
+						shopText = new FlxText(980, 0, 0, '+${shopNumberShit} multiplier\n${shopNumber} lobotomies', 48);
+						shopText.setFormat("Times New Roman", 48);
+						add(shopText);
+						remove(shopText2);
+						shopText2 = new FlxText(980, 120, 0, '+${shopNumberShit2} multiplier\n${shopNumber2} lobotomies', 48);
+						shopText2.setFormat("Times New Roman", 48);
+						add(shopText2);
+						remove(shopText3);
+						shopText3 = new FlxText(980, 240, 0, '+${shopNumberShit3} multiplier\n${shopNumber3} lobotomies', 48);
+						shopText3.setFormat("Times New Roman", 48);
+						add(shopText3);
+						remove(shopText4);
+						shopText4 = new FlxText(980, 360, 0, '+${shopNumberShit4} multiplier\n${shopNumber4} lobotomies', 48);
+						shopText4.setFormat("Times New Roman", 48);
+						add(shopText4);
+						remove(shopText5);
+						shopText5 = new FlxText(980, 480, 0, '+${shopNumberShit5} multiplier\n${shopNumber5} lobotomies', 48);
+						shopText5.setFormat("Times New Roman", 48);
+						add(shopText5);
+						remove(shopText6);
+						shopText6 = new FlxText(980, 600, 0, '+${shopNumberShit6} multiplier\n${shopNumber6} lobotomies', 48);
+						shopText6.setFormat("Times New Roman", 48);
+						add(shopText6);
 					}
 					shopNumberShit *= 2;
 					shopNumberShit2 *= 2;

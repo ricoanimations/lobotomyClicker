@@ -11,6 +11,7 @@ class TitleState extends FlxState
 	var bg:FlxSprite;
 	var enter:FlxSprite;
 	var enter2:FlxSprite;
+	var enter3:FlxSprite;
 	var logo:FlxText;
 
 	override public function create()
@@ -35,6 +36,11 @@ class TitleState extends FlxState
 		enter2.x = FlxG.width / 2 - enter.width / 2;
 		enter2.y = (FlxG.height / 2 - enter.height / 2) + enter.height;
 		add(enter2);
+		enter3 = new FlxSprite();
+		enter3.makeGraphic(160, 90, FlxColor.LIME);
+		enter3.x = FlxG.width / 2 - enter.width / 2;
+		enter3.y = (FlxG.height / 2 - enter.height / 2) + (enter.height * 2);
+		add(enter3);
 	}
 
 	override public function update(elapsed:Float)
@@ -62,6 +68,18 @@ class TitleState extends FlxState
 			if (FlxG.mouse.justReleased)
 			{
 				enter2.alpha = 1;
+			}
+		}
+		if (FlxG.mouse.overlaps(enter3))
+		{
+			enter3.alpha = 0.5;
+			if (FlxG.mouse.justPressed)
+			{
+				FlxG.switchState(new FiveNights());
+			}
+			if (FlxG.mouse.justReleased)
+			{
+				enter3.alpha = 1;
 			}
 		}
 	}
